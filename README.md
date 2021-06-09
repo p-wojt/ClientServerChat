@@ -1,15 +1,20 @@
 # ClientServerChat
 
-Aplikacja została stworzona przy wykorzystaniu frameworka PyQT.
+The application was created using the PyQT framework.
 
-## Opis
-Aplikacja umożliwia ustawienie nazwy użytkownika, dołączenia do wybranej grupy dyskusyjnej oraz komunikację pomiędzy klientami w grupie. Jednocześnie można dołączyć do kilku grup na raz i prowadzić w nich konwersacje.
+<img src="https://raw.githubusercontent.com/p-wojt/ClientServerChat/master/menu.png"/>
+<img src="https://raw.githubusercontent.com/p-wojt/ClientServerChat/master/chat.png"/>
 
-## Uruchomienie
-W celu uruchomienia aplikacji pobierany dostępne pliki polceniem
+## Description
+The applicaiton allows you to set a username, join a specified chat group and communicate with others in this group. You can also join several groups at the same time and have conversations.
 
-`git clone https://github.com/p-wojt/ClientServerChat.git`
+## How to start?
+1. First, you have to download project using this command:
 
-instalujemy wymagane biblioteki określone w `requirements.txt`, możemy wykonać poleceniem `pip3 install PyQt5`,
+    `git clone https://github.com/p-wojt/ClientServerChat.git`
 
-uruchamiany serwer polceniem `python Server.py`, a nastepnie możemy uruchomić klientów poprzez polecenie `python Client.py`
+2. Install all libraries which are listed in `requirements.txt`, there is only one command with you have execute: `pip3 install PyQt5`
+
+3. Start server by executing `py Server.py`, next run clients: `py Client.py`
+
+Have fun!
