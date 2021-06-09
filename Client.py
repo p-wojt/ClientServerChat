@@ -19,7 +19,7 @@ class MainWindow(QWidget):
         self.main_grid = QGridLayout()
         self.nickname = QLabel()
         self.nickname_field = QLineEdit()
-        self.connect_button = Button('Połącz')
+        self.connect_button = Button('Connect')
         self.groups_window = None
         self.setup(title, height, width)
 
@@ -28,7 +28,7 @@ class MainWindow(QWidget):
         self.setMinimumSize(width, height)
         self.setWindowTitle(title)
 
-        self.nickname.setText('Twój nick')
+        self.nickname.setText('Nickname')
 
         self.main_grid.addWidget(self.nickname, 0, 0)
         self.main_grid.addWidget(self.nickname_field, 0, 1)
@@ -45,10 +45,10 @@ class GroupsWindow(QWidget):
         super().__init__(parent)
         self.main_grid = QGridLayout()
         self.nickname = QLabel()
-        self.java_chat_button = Button('Dołącz do Java Chat')
-        self.cpp_chat_button = Button('Dołącz do C++ Chat')
-        self.python_chat_button = Button('Dołącz do Python Chat')
-        self.csharp_chat_button = Button('Dołącz do C# Chat')
+        self.java_chat_button = Button('Join to Java Chat')
+        self.cpp_chat_button = Button('Join to C++ Chat')
+        self.python_chat_button = Button('Join to Python Chat')
+        self.csharp_chat_button = Button('Join to C# Chat')
         self.chats = list()
         self.setup(title, height, width)
 
@@ -61,7 +61,7 @@ class GroupsWindow(QWidget):
         font = QFont()
         font.setBold(True)
         self.nickname.setFont(font)
-        self.nickname.setText('Witaj, %s!' % USER_NICKNAME)
+        self.nickname.setText('Welcome, %s!' % USER_NICKNAME)
 
         self.main_grid.addWidget(self.nickname, 0, 0)
         self.main_grid.addWidget(self.java_chat_button, 1, 0)
@@ -91,7 +91,7 @@ class ChatWindow(QWidget):
         self.nickname = QLabel()
         self.chat = QTextEdit()
         self.msg_field = QLineEdit()
-        self.send_button = Button('Wyślij')
+        self.send_button = Button('Send')
         self.setup(title, height, width)
 
     def setup(self, title, height, width):
@@ -103,7 +103,7 @@ class ChatWindow(QWidget):
         font = QFont()
         font.setBold(True)
         self.nickname.setFont(font)
-        self.nickname.setText('Twój nick: %s' % USER_NICKNAME)
+        self.nickname.setText('Your Nickname: %s' % USER_NICKNAME)
 
         self.chat.setReadOnly(True)
         self.chat.setFixedHeight(500)
@@ -145,10 +145,10 @@ class Button(QPushButton):
 
     def click_action(self):
         global USER_NICKNAME, s, connected
-        if self.text() == 'Połącz' \
+        if self.text() == 'Connect' \
                 and main_window.nickname_field.text() != '':
             if ' ' in main_window.nickname_field.text():
-                self.create_error_window('Twój nick nie może mieć spacji!')
+                self.create_error_window('Your nickname cannot have any spaces!')
             else:
                 USER_NICKNAME = main_window.nickname_field.text()
                 s = socket(AF_INET, SOCK_STREAM)
@@ -158,7 +158,7 @@ class Button(QPushButton):
                     data = s.recv(1024)
                     msg = data.decode()
                     if msg == 'Deliced':
-                        self.create_error_window('Podany nick juz jest zajęty!')
+                        self.create_error_window('Your nickname is already taken!')
                         s.close()
                         break
                     elif msg == 'Accepted':
@@ -167,29 +167,28 @@ class Button(QPushButton):
                         main_window.close()
                         connected = True
                         break
-        elif self.text() == 'Wyślij':
-            # po kliknięciu w przycisk wysyłana zostaje wiadomość na serwer
+        elif self.text() == 'Send':
             for chat in main_window.groups_window.chats:
                 if chat.send_button == self:
                     if chat.msg_field.text() != '':
                         s.send(('COMMAND ' + chat.windowTitle().split(' ')[0] + ' ' + USER_NICKNAME + ': ' + chat.msg_field.text()).encode())
                         chat.msg_field.clear()
-        elif self.text() == 'Dołącz do Java Chat':
+        elif self.text() == 'Join to Java Chat':
             new_window = ChatWindow('Java Chat', 600, 600)
             main_window.groups_window.chats.append(new_window)
             main_window.groups_window.java_chat_button.setDisabled(True)
             s.send(('Java OPEN ' + USER_NICKNAME).encode())
-        elif self.text() == 'Dołącz do C++ Chat':
+        elif self.text() == 'Join to C++ Chat':
             new_window = ChatWindow('C++ Chat', 600, 600)
             main_window.groups_window.chats.append(new_window)
             main_window.groups_window.cpp_chat_button.setDisabled(True)
             s.send(('C++ OPEN ' + USER_NICKNAME).encode())
-        elif self.text() == 'Dołącz do Python Chat':
+        elif self.text() == 'Join to Python Chat':
             new_window = ChatWindow('Python Chat', 600, 600)
             main_window.groups_window.chats.append(new_window)
             main_window.groups_window.python_chat_button.setDisabled(True)
             s.send(('Python OPEN ' + USER_NICKNAME).encode())
-        elif self.text() == 'Dołącz do C# Chat':
+        elif self.text() == 'Join to C# Chat':
             new_window = ChatWindow('C# Chat', 600, 600)
             main_window.groups_window.chats.append(new_window)
             main_window.groups_window.csharp_chat_button.setDisabled(True)
@@ -198,7 +197,7 @@ class Button(QPushButton):
     def create_error_window(self, msg):
         global error_window
         error_window = QtWidgets.QErrorMessage()
-        error_window.setWindowTitle('Blad')
+        error_window.setWindowTitle('Error')
         error_window.showMessage(msg)
 
 

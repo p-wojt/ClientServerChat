@@ -37,16 +37,16 @@ def client_thread(client):
             threading_lock.acquire()
             if str(msg).startswith('Java OPEN'):
                 for connection in CLIENTS:
-                    connection.send(('COMMAND Java' + get_server_time() + ' ' + msg[10:] + ' dolaczyl do chatu!').encode())
+                    connection.send(('COMMAND Java' + get_server_time() + ' ' + msg[10:] + ' joined the chat!').encode())
             elif str(msg).startswith('C++ OPEN'):
                 for connection in CLIENTS:
-                    connection.send(('COMMAND C++' + get_server_time() + ' ' + msg[9:] + ' dolaczyl do chatu!').encode())
+                    connection.send(('COMMAND C++' + get_server_time() + ' ' + msg[9:] + ' joined the chat!').encode())
             elif str(msg).startswith('Python OPEN'):
                 for connection in CLIENTS:
-                    connection.send(('COMMAND Python' + get_server_time() + ' ' + msg[12:] + ' dolaczyl do chatu!').encode())
+                    connection.send(('COMMAND Python' + get_server_time() + ' ' + msg[12:] + ' joined the chat!').encode())
             elif str(msg).startswith('C# OPEN'):
                 for connection in CLIENTS:
-                    connection.send(('COMMAND C#' + get_server_time() + ' ' + msg[8:] + ' dolaczyl do chatu!').encode())
+                    connection.send(('COMMAND C#' + get_server_time() + ' ' + msg[8:] + ' joined the chat!').encode())
             elif str(msg).startswith('COMMAND'):
                 for connection in CLIENTS:
                     channel = str(msg.split(' ')[1])
@@ -62,7 +62,7 @@ s.listen(5)
 
 while True:
     client, addr = s.accept()
-    print('Nowe polaczenie z ', addr)
+    print('New connection', addr)
     start_new_thread(client_thread, (client,))
     CLIENTS.append(client)
 
