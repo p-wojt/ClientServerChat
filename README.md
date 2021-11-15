@@ -1,6 +1,8 @@
 # ClientServerChat
 
-The application was created using the PyQT framework.
+Implementation of one project from the "Programming in Python" course
+
+Created by using the PyQT framework.
 
 <img src="https://raw.githubusercontent.com/p-wojt/ClientServerChat/master/menu.png"/>
 <img src="https://raw.githubusercontent.com/p-wojt/ClientServerChat/master/chat.png"/>
